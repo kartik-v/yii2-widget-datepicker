@@ -40,7 +40,7 @@ You can refer detailed [documentation and demos](http://demos.krajee.com/widget-
 ### Usage
 
 ```php
-use kartik\datepicker\DatePicker;
+use kartik\date\DatePicker;
 
 // usage without model
 echo '<label>Check Issue Date</label>';
