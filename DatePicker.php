@@ -31,6 +31,7 @@ class DatePicker extends \kartik\base\InputWidget
     const TYPE_COMPONENT_APPEND = 3;
     const TYPE_INLINE = 4;
     const TYPE_RANGE = 5;
+    const TYPE_HIDDEN = 6;
 
     /**
      * @var string the markup type of widget markup
@@ -63,6 +64,11 @@ class DatePicker extends \kartik\base\InputWidget
     public $addon = '<i class="glyphicon glyphicon-calendar"></i>';
 
     /**
+     * @var string The element will control the Datepicker for a [[TYPE_HIDDEN]]
+     */
+    public $button = '<button class="btn btn-icon"><i class="glyphicon glyphicon-calendar"></i></button>';
+
+    /**
      * @var string the model attribute 2 if you are using [[TYPE_RANGE]]
      * for markup.
      */
@@ -73,7 +79,7 @@ class DatePicker extends \kartik\base\InputWidget
      * for markup
      */
     public $name2;
-    
+
     /**
      * @var string the name of value for input number 2 if you are using [[TYPE_RANGE]]
      * for markup
@@ -117,7 +123,7 @@ class DatePicker extends \kartik\base\InputWidget
         if ($this->type === self::TYPE_RANGE && !class_exists('\\kartik\\field\\FieldRangeAsset')) {
             throw new InvalidConfigException("The yii2-field-range extension is not installed and is a pre-requisite for a DatePicker RANGE type. To install this extension run this command on your console: \n\nphp composer.phar require kartik-v/yii2-field-range \"*\"");
         }
-        if ($this->type < 1 || $this->type > 5 || !is_int($this->type)) {
+        if ($this->type < 1 || $this->type > 6 || !is_int($this->type)) {
             throw new InvalidConfigException("Invalid value for the property 'type'. Must be an integer between 1 and 5.");
         }
         if (isset($this->form) && !($this->form instanceof \yii\widgets\ActiveForm)) {
@@ -160,7 +166,9 @@ class DatePicker extends \kartik\base\InputWidget
             return $this->form->field($this->model, $this->attribute)->widget(self::classname(), $vars);
         }
 
-        return $this->parseMarkup($this->getInput('textInput'));
+        $input = $this->type == self::TYPE_HIDDEN ? 'hiddenInput' : 'textInput';
+
+        return $this->parseMarkup($this->getInput($input));
     }
 
     /**
@@ -219,6 +227,12 @@ class DatePicker extends \kartik\base\InputWidget
             $this->_id = $this->options['id'] . '-inline';
             $this->_container['id'] = $this->_id;
             return Html::tag('div', '', $this->_container) . $input;
+        }
+        if ($this->type == self::TYPE_HIDDEN) {
+            $this->_id = $this->options['id'] . '-hidden';
+            $this->_container['id'] = $this->_id;
+            Html::addCssClass($this->_container, 'date');
+            return Html::tag('div', "{$input}{$this->button}", $this->_container);
         }
     }
 
