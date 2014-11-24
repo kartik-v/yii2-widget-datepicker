@@ -199,6 +199,10 @@ class DatePicker extends \kartik\base\InputWidget
             Html::addCssClass($this->_container, 'date');
             return Html::tag('div', "{$input}<span class='input-group-addon'>{$this->addon}</span>", $this->_container);
         }
+        if ($this->type == self::TYPE_HIDDEN) {
+            Html::addCssClass($this->_container, 'date');
+            return Html::tag('div', "{$input}{$this->button}", $this->_container);
+        }
         if ($this->type == self::TYPE_RANGE) {
             Html::addCssClass($this->_container, 'input-daterange');
             if (isset($this->form)) {
@@ -227,12 +231,6 @@ class DatePicker extends \kartik\base\InputWidget
             $this->_id = $this->options['id'] . '-inline';
             $this->_container['id'] = $this->_id;
             return Html::tag('div', '', $this->_container) . $input;
-        }
-        if ($this->type == self::TYPE_HIDDEN) {
-            $this->_id = $this->options['id'] . '-hidden';
-            $this->_container['id'] = $this->_id;
-            Html::addCssClass($this->_container, 'date');
-            return Html::tag('div', "{$input}{$this->button}", $this->_container);
         }
     }
 
