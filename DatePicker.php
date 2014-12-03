@@ -183,9 +183,9 @@ class DatePicker extends \kartik\base\InputWidget
             if (isset($this->size)) {
                 Html::addCssClass($this->options, 'input-' . $this->size);
             }
-        } elseif (isset($this->size)) {
+        } elseif ($this->type != self::TYPE_BUTTON && isset($this->size)) {
             Html::addCssClass($this->_container, 'input-group input-group-' . $this->size);
-        } else {
+        } elseif ($this->type != self::TYPE_BUTTON) {
             Html::addCssClass($this->_container, 'input-group');
         }
         if ($this->type == self::TYPE_INPUT) {
