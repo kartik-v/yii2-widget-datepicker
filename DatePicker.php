@@ -25,12 +25,13 @@ use yii\base\InvalidConfigException;
  */
 class DatePicker extends \kartik\base\InputWidget
 {
-
+    const CALENDAR_ICON = '<i class="glyphicon glyphicon-calendar"></i>';
     const TYPE_INPUT = 1;
     const TYPE_COMPONENT_PREPEND = 2;
     const TYPE_COMPONENT_APPEND = 3;
     const TYPE_INLINE = 4;
     const TYPE_RANGE = 5;
+    const TYPE_BUTTON = 6;
 
     /**
      * @var string the markup type of widget markup
@@ -50,7 +51,14 @@ class DatePicker extends \kartik\base\InputWidget
      * attribute2 for [[TYPE_RANGE]] validation
      */
     public $form;
-
+    
+    /**
+     * @var array the HTML attributes for the button that is rendered for [[DatePicker::TYPE_BUTTON]].
+     * Defaults to `['class'=>'btn btn-default']`. The following special options are recognized:
+     * - 'label': string the button label. Defaults to `<i class="glyphicon glyphicon-calendar"></i>`
+     */
+    public $buttonOptions = [];
+    
     /**
      * @var array the HTML attributes for the input tag.
      */
@@ -60,7 +68,7 @@ class DatePicker extends \kartik\base\InputWidget
      * @var string The addon that will be prepended/appended for a
      * [[TYPE_COMPONENT_PREPEND]] and [[TYPE_COMPONENT_APPEND]]
      */
-    public $addon = '<i class="glyphicon glyphicon-calendar"></i>';
+    public $addon = self::CALENDAR_ICON;
 
     /**
      * @var string the model attribute 2 if you are using [[TYPE_RANGE]]
@@ -117,8 +125,8 @@ class DatePicker extends \kartik\base\InputWidget
         if ($this->type === self::TYPE_RANGE && !class_exists('\\kartik\\field\\FieldRangeAsset')) {
             throw new InvalidConfigException("The yii2-field-range extension is not installed and is a pre-requisite for a DatePicker RANGE type. To install this extension run this command on your console: \n\nphp composer.phar require kartik-v/yii2-field-range \"*\"");
         }
-        if ($this->type < 1 || $this->type > 5 || !is_int($this->type)) {
-            throw new InvalidConfigException("Invalid value for the property 'type'. Must be an integer between 1 and 5.");
+        if ($this->type < 1 || $this->type > 6 || !is_int($this->type)) {
+            throw new InvalidConfigException("Invalid value for the property 'type'. Must be an integer between 1 and 6.");
         }
         if (isset($this->form) && !($this->form instanceof \yii\widgets\ActiveForm)) {
             throw new InvalidConfigException("The 'form' property must be of type \\yii\\widgets\\ActiveForm");
@@ -159,8 +167,8 @@ class DatePicker extends \kartik\base\InputWidget
             unset($vars['form']);
             return $this->form->field($this->model, $this->attribute)->widget(self::classname(), $vars);
         }
-
-        return $this->parseMarkup($this->getInput('textInput'));
+        $input = $this->type == self::TYPE_BUTTON ? 'hiddenInput' : 'textInput';
+        return $this->parseMarkup($this->getInput($input));
     }
 
     /**
@@ -191,6 +199,15 @@ class DatePicker extends \kartik\base\InputWidget
             Html::addCssClass($this->_container, 'date');
             return Html::tag('div', "{$input}<span class='input-group-addon'>{$this->addon}</span>", $this->_container);
         }
+        if ($this->type == self::TYPE_BUTTON) {
+            Html::addCssClass($this->_container, 'date');
+            $label = ArrayHelper::remove($this->buttonOptions, 'label', self::CALENDAR_ICON);
+            if (empty($this->buttonOptions['class'])) {
+                $this->buttonOptions['class'] = 'btn btn-default';
+            }
+            $button = Html::button($label, $this->buttonOptions);
+            return Html::tag('div', "{$input}{$button}", $this->_container);
+        }        
         if ($this->type == self::TYPE_RANGE) {
             Html::addCssClass($this->_container, 'input-daterange');
             if (isset($this->form)) {

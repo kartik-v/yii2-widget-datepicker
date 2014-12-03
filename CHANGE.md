@@ -2,6 +2,7 @@ version 1.2.0
 =============
 **Date:** 03-Dec-2014
 
+- (enh #1): Add a new markup TYPE_BUTTON with hidden input.
 - (bug #3): Fix setLanguage asset locales registration.
 
 version 1.1.0
