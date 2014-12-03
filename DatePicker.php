@@ -129,7 +129,7 @@ class DatePicker extends \kartik\base\InputWidget
         if (isset($this->form) && ($this->type === self::TYPE_RANGE) && (!isset($this->attribute2))) {
             throw new InvalidConfigException("The 'attribute2' property must be set for a 'range' type markup and a defined 'form' property.");
         }
-        $this->setLanguage('bootstrap-datepicker.');
+        $this->setLanguage('bootstrap-datepicker.', __DIR__ . '/assets');
         $this->parseDateFormat('date');
         $this->_id = ($this->type == self::TYPE_INPUT) ? 'jQuery("#' . $this->options['id'] . '")' : 'jQuery("#' . $this->options['id'] . '").parent()';
         $this->registerAssets();
