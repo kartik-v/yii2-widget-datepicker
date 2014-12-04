@@ -203,8 +203,8 @@ class DatePicker extends \kartik\base\InputWidget
         if ($this->type == self::TYPE_BUTTON) {
             Html::addCssClass($this->_container, 'date');
             $label = ArrayHelper::remove($this->buttonOptions, 'label', self::CALENDAR_ICON);
-            if (!isset($this->buttonOptions['disabled']) && $this->disabled) {
-                $this->buttonOptions['disabled'] = $disabled;
+            if (!isset($this->buttonOptions['disabled'])) {
+                $this->buttonOptions['disabled'] = $this->disabled;
             }
             if (empty($this->buttonOptions['class'])) {
                 $this->buttonOptions['class'] = 'btn btn-default';
