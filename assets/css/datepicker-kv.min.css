@@ -9,4 +9,4 @@
  * Author: Kartik Visweswaran
  * Year: 2014
  * For more Yii related demos visit http://demos.krajee.com
- */.datepicker{z-index:1151 !important}.input-group.date.disabled  .input-group-addon .glyphicon{cursor:not-allowed;color: #777}
+ */.datepicker{z-index:1151!important}.input-group.date.disabled .input-group-addon .glyphicon{cursor:not-allowed;filter:alpha(opacity=65);-webkit-box-shadow:none;box-shadow:none;opacity:.65}
