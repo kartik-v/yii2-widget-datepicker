@@ -1,9 +1,11 @@
 version 1.2.0
 =============
-**Date:** 03-Dec-2014
+**Date:** 04-Dec-2014
 
 - (enh #1): Add a new markup TYPE_BUTTON with hidden input.
 - (bug #3): Fix setLanguage asset locales registration.
+- (enh #4): Auto validate disability using new `disabled` and `readonly` properties in InputWidget
+- (enh #5): Include styling of markup rightly based on type for `disabled` and `readonly`
 
 version 1.1.0
 =============

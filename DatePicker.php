@@ -179,14 +179,15 @@ class DatePicker extends \kartik\base\InputWidget
      */
     protected function parseMarkup($input)
     {
+        $css = $this->disabled ? ' disabled' : '';
         if ($this->type == self::TYPE_INPUT || $this->type == self::TYPE_INLINE) {
             if (isset($this->size)) {
-                Html::addCssClass($this->options, 'input-' . $this->size);
+                Html::addCssClass($this->options, 'input-' . $this->size . $css);
             }
         } elseif ($this->type != self::TYPE_BUTTON && isset($this->size)) {
-            Html::addCssClass($this->_container, 'input-group input-group-' . $this->size);
+            Html::addCssClass($this->_container, 'input-group input-group-' . $this->size . $css);
         } elseif ($this->type != self::TYPE_BUTTON) {
-            Html::addCssClass($this->_container, 'input-group');
+            Html::addCssClass($this->_container, 'input-group' . $css);
         }
         if ($this->type == self::TYPE_INPUT) {
             return $input;
@@ -202,6 +203,10 @@ class DatePicker extends \kartik\base\InputWidget
         if ($this->type == self::TYPE_BUTTON) {
             Html::addCssClass($this->_container, 'date');
             $label = ArrayHelper::remove($this->buttonOptions, 'label', self::CALENDAR_ICON);
+            $disabled = $this->disabled || $this->readonly;
+            if (!isset($this->buttonOptions['disabled']) && $disabled) {
+                $this->buttonOptions['disabled'] = $disabled;
+            }
             if (empty($this->buttonOptions['class'])) {
                 $this->buttonOptions['class'] = 'btn btn-default';
             }
@@ -210,6 +215,7 @@ class DatePicker extends \kartik\base\InputWidget
         }        
         if ($this->type == self::TYPE_RANGE) {
             Html::addCssClass($this->_container, 'input-daterange');
+            $this->initDisability($this->options2);
             if (isset($this->form)) {
                 Html::addCssClass($this->options, 'form-control kv-field-from');
                 Html::addCssClass($this->options2, 'form-control kv-field-to');
@@ -244,6 +250,9 @@ class DatePicker extends \kartik\base\InputWidget
      */
     public function registerAssets()
     {
+        if ($this->disabled) {
+            return;
+        }
         $view = $this->getView();
         if (!empty($this->_langFile)) {
             DatePickerAsset::register($view)->js[] = $this->_langFile;
