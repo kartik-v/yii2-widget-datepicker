@@ -2,8 +2,7 @@
  * Finnish translation for bootstrap-datepicker
  * Jaakko Salonen <https://github.com/jsalonen>
  */
-;
-(function ($) {
+;(function($){
 	$.fn.datepicker.dates['fi'] = {
 		days: ["sunnuntai", "maanantai", "tiistai", "keskiviikko", "torstai", "perjantai", "lauantai", "sunnuntai"],
 		daysShort: ["sun", "maa", "tii", "kes", "tor", "per", "lau", "sun"],

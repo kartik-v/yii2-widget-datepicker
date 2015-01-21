@@ -2,8 +2,7 @@
  * Welsh translation for bootstrap-datepicker
  * S. Morris <s.morris@bangor.ac.uk>
  */
-;
-(function ($) {
+;(function($){
 	$.fn.datepicker.dates['cy'] = {
 		days: ["Sul", "Llun", "Mawrth", "Mercher", "Iau", "Gwener", "Sadwrn", "Sul"],
 		daysShort: ["Sul", "Llu", "Maw", "Mer", "Iau", "Gwe", "Sad", "Sul"],

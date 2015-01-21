@@ -1,4 +1,7 @@
 /**
+ * Italian (Switzerland) translation for bootstrap-datepicker
+ * Christoph Jossi <c.jossi@ascami.ch>
+ * Based on 
  * Italian translation for bootstrap-datepicker
  * Enrico Rubboli <rubboli@gmail.com>
  */
@@ -12,6 +15,6 @@
 		today: "Oggi",
 		clear: "Cancella",
 		weekStart: 1,
-		format: "dd/mm/yyyy"
+		format: "dd.mm.yyyy"
 	};
 }(jQuery));

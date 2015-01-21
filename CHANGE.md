@@ -1,3 +1,9 @@
+version 1.3.0
+=============
+**Date:** 21-Jan-2015
+
+- Update to latest release of datepicker plugin.
+
 version 1.2.0
 =============
 **Date:** 04-Dec-2014

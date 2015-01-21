@@ -2,8 +2,7 @@
  * Kazakh translation for bootstrap-datepicker
  * Yerzhan Tolekov <era.tolekov@gmail.com>
  */
-;
-(function ($) {
+;(function($){
 	$.fn.datepicker.dates['kk'] = {
 		days: ["Жексенбі", "Дүйсенбі", "Сейсенбі", "Сәрсенбі", "Бейсенбі", "Жұма", "Сенбі", "Жексенбі"],
 		daysShort: ["Жек", "Дүй", "Сей", "Сәр", "Бей", "Жұм", "Сен", "Жек"],

@@ -2,9 +2,8 @@
  * Hungarian translation for bootstrap-datepicker
  * Sotus László <lacisan@gmail.com>
  */
-;
-(function ($) {
-	$.fn.datepicker.dates['hu'] = {
+;(function($){
+  $.fn.datepicker.dates['hu'] = {
 		days: ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Vasárnap"],
 		daysShort: ["Vas", "Hét", "Ked", "Sze", "Csü", "Pén", "Szo", "Vas"],
 		daysMin: ["Va", "Hé", "Ke", "Sz", "Cs", "Pé", "Sz", "Va"],
