@@ -1,3 +1,9 @@
+version 1.3.1
+=============
+**Date:** 06-Feb-2015
+
+- (enh #19): Store date picker widget type as data attribute
+
 version 1.3.0
 =============
 **Date:** 25-Jan-2015

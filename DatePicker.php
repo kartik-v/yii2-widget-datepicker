@@ -4,7 +4,7 @@
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014
  * @package yii2-widgets
  * @subpackage yii2-widget-datepicker
- * @version 1.3.0
+ * @version 1.3.1
  */
 
 namespace kartik\date;
@@ -260,6 +260,7 @@ class DatePicker extends \kartik\base\InputWidget
             DatePickerAsset::register($view);
         }
         $id = "jQuery('#" . $this->options['id'] . "')";
+        $this->options['data-datepicker-type'] = $this->type;
         if ($this->type == self::TYPE_INLINE) {
             $this->pluginEvents = ArrayHelper::merge($this->pluginEvents, ['changeDate' => 'function (e) { ' . $id . '.val(e.format());} ']);
         }
