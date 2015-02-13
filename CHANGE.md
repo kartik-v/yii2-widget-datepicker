@@ -1,8 +1,11 @@
 version 1.3.1
 =============
-**Date:** 06-Feb-2015
+**Date:** 13-Feb-2015
 
 - (enh #19): Store date picker widget type as data attribute
+- Update datepicker plugin to the latest release.
+- Use minified js files for locales.
+- Set copyright year to current.
 
 version 1.3.0
 =============
