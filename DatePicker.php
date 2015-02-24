@@ -58,6 +58,18 @@ class DatePicker extends \kartik\base\InputWidget
      * - 'label': string the button label. Defaults to `<i class="glyphicon glyphicon-calendar"></i>`
      */
     public $buttonOptions = [];
+
+    /**
+     * @var mixed the calendar remove button configuration - applicable only for type 
+     * set to `DatePicker::TYPE_COMPONENT_PREPEND` or `DatePicker::TYPE_COMPONENT_APPEND`.
+     * - if this is passed as a string, it will be displayed as is (will not be HTML encoded).
+     * - if this is set to false, the remove button will not be displayed.
+     * - if this is passed as an array (this is the DEFAULT) it will treat this as HTML attributes
+     *   for the button (to be displayed as a Bootstrap addon). The following special keys are recognized;
+     *   - icon - string, the bootstrap glyphicon name/suffix. Defaults to 'remove'.
+     *   - title - string, the title to be displayed on hover. Defaults to 'Clear field'.
+     */
+    public $removeButton = [];
     
     /**
      * @var array the HTML attributes for the input tag.
@@ -112,6 +124,11 @@ class DatePicker extends \kartik\base\InputWidget
     private $_container = [];
     
     /**
+     * @var bool whether a prepend or append addon exists
+     */
+    protected $_hasAddon = false;
+    
+    /**
      * Initializes the widget
      *
      * @throw InvalidConfigException
@@ -119,6 +136,7 @@ class DatePicker extends \kartik\base\InputWidget
     public function init()
     {
         parent::init();
+        $this->_hasAddon = $this->type == self::TYPE_COMPONENT_PREPEND || $this->type == self::TYPE_COMPONENT_APPEND;
         if ($this->type === self::TYPE_RANGE && $this->attribute2 === null && $this->name2 === null) {
             throw new InvalidConfigException("Either 'name2' or 'attribute2' properties must be specified for a datepicker 'range' markup.");
         }
@@ -173,6 +191,24 @@ class DatePicker extends \kartik\base\InputWidget
     }
 
     /**
+     * Returns the remove button addon
+     * @return string
+     */
+    protected function renderRemoveButton()
+    {
+        $options = $this->removeButton;
+        if ($options === false) {
+            return '';
+        }
+        Html::addCssClass($options, 'input-group-addon kv-date-remove');
+        $icon = '<i class="glyphicon glyphicon-' . ArrayHelper::remove($options, 'icon', 'remove') . '"></i>';
+        if (empty($options['title'])) {
+            $options['title'] = Yii::t('app', 'Clear field');
+        }
+        return Html::tag('span', $icon, $options);        
+    }
+
+    /**
      * Parses the input to render based on markup type
      *
      * @param string $input
@@ -193,13 +229,15 @@ class DatePicker extends \kartik\base\InputWidget
         if ($this->type == self::TYPE_INPUT) {
             return $input;
         }
-        if ($this->type == self::TYPE_COMPONENT_PREPEND) {
+        if ($this->_hasAddon) {
             Html::addCssClass($this->_container, 'date');
-            return Html::tag('div', "<span class='input-group-addon'>{$this->addon}</span>{$input}", $this->_container);
-        }
-        if ($this->type == self::TYPE_COMPONENT_APPEND) {
-            Html::addCssClass($this->_container, 'date');
-            return Html::tag('div', "{$input}<span class='input-group-addon'>{$this->addon}</span>", $this->_container);
+            $addon = "<span class='input-group-addon'>{$this->addon}</span>";
+            $remove = $this->renderRemoveButton();
+            $content = $addon . $remove . $input;
+            if ($this->type == self::TYPE_COMPONENT_APPEND) {
+                $content = $input . $remove . $addon;
+            }
+            return Html::tag('div', $content, $this->_container);
         }
         if ($this->type == self::TYPE_BUTTON) {
             Html::addCssClass($this->_container, 'date');
@@ -270,6 +308,11 @@ class DatePicker extends \kartik\base\InputWidget
             $this->registerPlugin('datepicker', "{$id}.parent().parent()");
         } else {
             $this->registerPlugin('datepicker', "{$id}.parent()");
+        }
+        if ($this->removeButton !== false && $this->_hasAddon) {
+            $view->registerJs("{$id}.parent().find('.kv-date-remove').on('click', function() {
+                {$id}.parent().datepicker('clearDates');
+            });");
         }
         if ($this->type === self::TYPE_RANGE) {
             \kartik\field\FieldRangeAsset::register($view);

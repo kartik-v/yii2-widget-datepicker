@@ -1,3 +1,11 @@
+version 1.3.2
+=============
+**Date:** 25-Feb-2015
+
+- (enh #21): Add new remove button to clear dates. Applicable only for following `DatePicker` types:
+    - `DatePicker::TYPE_COMPONENT_PREPEND` and 
+    - `DatePicker::TYPE_COMPONENT_APPEND` 
+
 version 1.3.1
 =============
 **Date:** 13-Feb-2015
