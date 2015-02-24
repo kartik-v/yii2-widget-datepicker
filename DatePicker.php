@@ -58,6 +58,17 @@ class DatePicker extends \kartik\base\InputWidget
      * - 'label': string the button label. Defaults to `<i class="glyphicon glyphicon-calendar"></i>`
      */
     public $buttonOptions = [];
+    
+    /**
+     * @var mixed the calendar picker button configuration.
+     * - if this is passed as a string, it will be displayed as is (will not be HTML encoded).
+     * - if this is set to false, the picker button will not be displayed.
+     * - if this is passed as an array (this is the DEFAULT) it will treat this as HTML attributes
+     *   for the button (to be displayed as a Bootstrap addon). The following special keys are recognized;
+     *   - icon - string, the bootstrap glyphicon name/suffix. Defaults to 'calendar'.
+     *   - title - string, the title to be displayed on hover. Defaults to 'Select date & time'.
+     */
+    public $pickerButton = [];
 
     /**
      * @var mixed the calendar remove button configuration - applicable only for type 
@@ -135,6 +146,7 @@ class DatePicker extends \kartik\base\InputWidget
      */
     public function init()
     {
+        $this->_msgCat = 'kvdate';
         parent::init();
         $this->_hasAddon = $this->type == self::TYPE_COMPONENT_PREPEND || $this->type == self::TYPE_COMPONENT_APPEND;
         if ($this->type === self::TYPE_RANGE && $this->attribute2 === null && $this->name2 === null) {
@@ -156,6 +168,7 @@ class DatePicker extends \kartik\base\InputWidget
             throw new InvalidConfigException("The 'attribute2' property must be set for a 'range' type markup and a defined 'form' property.");
         }
         $s = DIRECTORY_SEPARATOR;
+        $this->initI18N();
         $this->setLanguage('bootstrap-datepicker.', __DIR__ . "{$s}assets{$s}", null, '.min.js');
         $this->parseDateFormat('date');
         $this->_id = ($this->type == self::TYPE_INPUT) ? 'jQuery("#' . $this->options['id'] . '")' : 'jQuery("#' . $this->options['id'] . '").parent()';
@@ -191,21 +204,30 @@ class DatePicker extends \kartik\base\InputWidget
     }
 
     /**
-     * Returns the remove button addon
+     * Returns the addon to render
+     *
+     * @param array $options the HTML attributes for the addon
+     * @param string $type whether the addon is the picker or remove
      * @return string
      */
-    protected function renderRemoveButton()
+    protected function renderAddon(&$options, $type = 'picker')
     {
-        $options = $this->removeButton;
         if ($options === false) {
             return '';
         }
-        Html::addCssClass($options, 'input-group-addon kv-date-remove');
-        $icon = '<i class="glyphicon glyphicon-' . ArrayHelper::remove($options, 'icon', 'remove') . '"></i>';
-        if (empty($options['title'])) {
-            $options['title'] = Yii::t('app', 'Clear field');
+        if (is_string($options)) {
+            return $options;
         }
-        return Html::tag('span', $icon, $options);        
+        $icon = ($type === 'picker') ? 'calendar' : 'remove';
+        Html::addCssClass($options, 'input-group-addon kv-date-' . $icon);
+        $icon = '<i class="glyphicon glyphicon-' . ArrayHelper::remove($options, 'icon', $icon) . '"></i>';
+        if (empty($options['title'])) {
+            $title = ($type === 'picker') ? Yii::t('kvdate', 'Select date') : Yii::t('kvdate', 'Clear field');
+            if ($title != false) {
+                $options['title'] = $title;
+            }
+        }
+        return Html::tag('span', $icon, $options);
     }
 
     /**
@@ -231,11 +253,11 @@ class DatePicker extends \kartik\base\InputWidget
         }
         if ($this->_hasAddon) {
             Html::addCssClass($this->_container, 'date');
-            $addon = "<span class='input-group-addon'>{$this->addon}</span>";
-            $remove = $this->renderRemoveButton();
-            $content = $addon . $remove . $input;
+            $picker = $this->renderAddon($this->pickerButton);
+            $remove = $this->renderAddon($this->removeButton, 'remove');
+            $content = $picker . $remove . $input;
             if ($this->type == self::TYPE_COMPONENT_APPEND) {
-                $content = $input . $remove . $addon;
+                $content = $input . $remove . $picker;
             }
             return Html::tag('div', $content, $this->_container);
         }
