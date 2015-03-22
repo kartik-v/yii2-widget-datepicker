@@ -4,7 +4,7 @@
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  * @package yii2-widgets
  * @subpackage yii2-widget-datepicker
- * @version 1.3.2
+ * @version 1.3.3
  */
 
 namespace kartik\date;
@@ -147,6 +147,7 @@ class DatePicker extends \kartik\base\InputWidget
     public function init()
     {
         $this->_msgCat = 'kvdate';
+        $this->pluginName = 'kvDatepicker';
         parent::init();
         $this->_hasAddon = $this->type == self::TYPE_COMPONENT_PREPEND || $this->type == self::TYPE_COMPONENT_APPEND;
         if ($this->type === self::TYPE_RANGE && $this->attribute2 === null && $this->name2 === null) {
@@ -325,15 +326,15 @@ class DatePicker extends \kartik\base\InputWidget
             $this->pluginEvents = ArrayHelper::merge($this->pluginEvents, ['changeDate' => 'function (e) { ' . $id . '.val(e.format());} ']);
         }
         if ($this->type === self::TYPE_INPUT) {
-            $this->registerPlugin('datepicker');
+            $this->registerPlugin($this->pluginName);
         } elseif ($this->type === self::TYPE_RANGE && isset($this->form)) {
-            $this->registerPlugin('datepicker', "{$id}.parent().parent()");
+            $this->registerPlugin($this->pluginName, "{$id}.parent().parent()");
         } else {
-            $this->registerPlugin('datepicker', "{$id}.parent()");
+            $this->registerPlugin($this->pluginName, "{$id}.parent()");
         }
         if ($this->removeButton !== false && $this->_hasAddon) {
             $view->registerJs("{$id}.parent().find('.kv-date-remove').on('click', function() {
-                {$id}.parent().datepicker('clearDates');
+            {$id}.parent().{$this->pluginName}('clearDates');
             });");
         }
         if ($this->type === self::TYPE_RANGE) {

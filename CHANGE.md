@@ -1,3 +1,10 @@
+version 1.3.3
+=============
+**Date:** 22-Mar-2015
+
+- (enh #27): Enhance plugin to use no conflict approach.
+- (enh #28): Update to latest version of bootstrap-datepicker.
+
 version 1.3.2
 =============
 **Date:** 25-Feb-2015

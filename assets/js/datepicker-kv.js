@@ -4,9 +4,15 @@
  * @subpackage yii2-widget-datepicker
  * @version 1.3.3
  *
- * Custom styling for Datepicker
+ * Extension to bootstrap datepicker to use noconflict approach
+ * so that the plugin does not conflict with other jquery plugins
+ * of similar name
+ *
  * Built for Yii Framework 2.0
  * Author: Kartik Visweswaran
  * Year: 2015
  * For more Yii related demos visit http://demos.krajee.com
- */.datepicker{z-index:1151!important}.input-group.date.disabled .input-group-addon .glyphicon{cursor:not-allowed;filter:alpha(opacity=65);-webkit-box-shadow:none;box-shadow:none;opacity:.65}.input-group.date .input-group-addon span{cursor:pointer}
+ */
+(function ($) {
+    $.fn.kvDatepicker = $.fn.datepicker.noConflict();
+})(window.jQuery);
