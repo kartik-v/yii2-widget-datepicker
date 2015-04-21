@@ -1,11 +1,11 @@
 yii2-widget-datepicker
 ======================
 
-[![Latest Stable Version](https://poser.pugx.org/kartik-v/yii2-widget-datepicker/v/stable.svg)](https://packagist.org/packages/kartik-v/yii2-widget-datepicker)
-[![License](https://poser.pugx.org/kartik-v/yii2-widget-datepicker/license.svg)](https://packagist.org/packages/kartik-v/yii2-widget-datepicker)
-[![Total Downloads](https://poser.pugx.org/kartik-v/yii2-widget-datepicker/downloads.svg)](https://packagist.org/packages/kartik-v/yii2-widget-datepicker)
-[![Monthly Downloads](https://poser.pugx.org/kartik-v/yii2-widget-datepicker/d/monthly.png)](https://packagist.org/packages/kartik-v/yii2-widget-datepicker)
-[![Daily Downloads](https://poser.pugx.org/kartik-v/yii2-widget-datepicker/d/daily.png)](https://packagist.org/packages/kartik-v/yii2-widget-datepicker)
+[![Latest Stable Version](https://poser.pugx.org/kartik-v/yii2-widget-datepicker/v/stable)](https://packagist.org/packages/kartik-v/yii2-widget-datepicker)
+[![License](https://poser.pugx.org/kartik-v/yii2-widget-datepicker/license)](https://packagist.org/packages/kartik-v/yii2-widget-datepicker)
+[![Total Downloads](https://poser.pugx.org/kartik-v/yii2-widget-datepicker/downloads)](https://packagist.org/packages/kartik-v/yii2-widget-datepicker)
+[![Monthly Downloads](https://poser.pugx.org/kartik-v/yii2-widget-datepicker/d/monthly)](https://packagist.org/packages/kartik-v/yii2-widget-datepicker)
+[![Daily Downloads](https://poser.pugx.org/kartik-v/yii2-widget-datepicker/d/daily)](https://packagist.org/packages/kartik-v/yii2-widget-datepicker)
 
 The DatePicker widget is a Yii 2 wrapper for the [Bootstrap DatePicker plugin](http://eternicode.github.io/bootstrap-datepicker) with various enhancements. The plugin is a fork of Stefan Petre's DatePicker (of eyecon.ro), with improvements by @eternicode. The widget is specially styled for Yii framework 2.0 and Bootstrap 3 and allows graceful degradation to a normal HTML text input, if the browser does not support JQuery. The widget supports these markups:
 
