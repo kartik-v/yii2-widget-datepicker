@@ -4,7 +4,7 @@
     "keywords": ["yii2", "extension", "widget", "select2", "form", "date", "picker", "jquery", "plugin"],
     "homepage": "https://github.com/kartik-v/yii2-widget-datepicker",
     "type": "yii2-extension",
-    "license": "BSD 3-Clause",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Kartik Visweswaran",

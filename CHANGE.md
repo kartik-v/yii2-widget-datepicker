@@ -1,11 +1,12 @@
 version 1.3.3
 =============
-**Date:** 05-Apr-2015
+**Date:** 15-Jun-2015
 
 - (enh #27): Enhance plugin to use no conflict approach.
 - (enh #28): Update to latest version of bootstrap-datepicker.
 - (enh #29): Fix locale js files to use the new noconflict kvDatepicker function.
 - (enh #30): Add Ukranian translations.
+- (enh #39): Add Spanish translations.
 
 version 1.3.2
 =============
