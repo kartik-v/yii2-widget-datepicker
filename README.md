@@ -25,13 +25,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 To install, either run
 
 ```
-$ php composer.phar require kartik-v/yii2-widget-datepicker "*"
+$ php composer.phar require kartik-v/yii2-widget-datepicker "@dev"
 ```
 
 or add
 
 ```
-"kartik-v/yii2-widget-datepicker": "*"
+"kartik-v/yii2-widget-datepicker": "@dev"
 ```
 
 to the ```require``` section of your `composer.json` file.

@@ -66,7 +66,8 @@ class DatePicker extends \kartik\base\InputWidget
      * - if this is passed as an array (this is the DEFAULT) it will treat this as HTML attributes
      *   for the button (to be displayed as a Bootstrap addon). The following special keys are recognized;
      *   - icon - string, the bootstrap glyphicon name/suffix. Defaults to 'calendar'.
-     *   - title - string, the title to be displayed on hover. Defaults to 'Select date & time'.
+     *   - title - string|bool, the title to be displayed on hover. Defaults to 'Select date & time'. To disable,
+     *     set it to `false`.
      */
     public $pickerButton = [];
 
@@ -78,7 +79,8 @@ class DatePicker extends \kartik\base\InputWidget
      * - if this is passed as an array (this is the DEFAULT) it will treat this as HTML attributes
      *   for the button (to be displayed as a Bootstrap addon). The following special keys are recognized;
      *   - icon - string, the bootstrap glyphicon name/suffix. Defaults to 'remove'.
-     *   - title - string, the title to be displayed on hover. Defaults to 'Clear field'.
+     *   - title - string, the title to be displayed on hover. Defaults to 'Clear field'. To disable,
+     *     set it to `false`.
      */
     public $removeButton = [];
     
@@ -88,10 +90,18 @@ class DatePicker extends \kartik\base\InputWidget
     public $options = [];
 
     /**
-     * @var string The addon that will be prepended/appended for a
-     * [[TYPE_COMPONENT_PREPEND]] and [[TYPE_COMPONENT_APPEND]]
+     * @var array The addon that will be prepended/appended for a  [[TYPE_COMPONENT_PREPEND]] and
+     * [[TYPE_COMPONENT_APPEND]]. You can set the following array keys:
+     * - part1: string, the content to prepend before the [[TYPE_COMPONENT_PREPEND]] OR 
+     *          before input # 1 for [[TYPE_RANGE]].
+     * - part2: string, the content to prepend after the [[TYPE_COMPONENT_PREPEND]]  OR 
+     *          after input # 1 for [[TYPE_RANGE]].
+     * - part3: string, the content to append before the [[TYPE_COMPONENT_APPEND]]  OR 
+     *          before input # 2 for [[TYPE_RANGE]].
+     * - part4: string, the content to append after the [[TYPE_COMPONENT_APPEND]] OR 
+     *          after input # 2 for [[TYPE_RANGE]].
      */
-    public $addon = self::CALENDAR_ICON;
+    public $addon = [];
 
     /**
      * @var string the model attribute 2 if you are using [[TYPE_RANGE]]
@@ -168,6 +178,9 @@ class DatePicker extends \kartik\base\InputWidget
         if (isset($this->form) && ($this->type === self::TYPE_RANGE) && (!isset($this->attribute2))) {
             throw new InvalidConfigException("The 'attribute2' property must be set for a 'range' type markup and a defined 'form' property.");
         }
+        if (isset($this->addon) && !is_array($this->addon)) {
+            throw new InvalidConfigException("The 'addon' property must be setup as an array with 'part1', 'part2', 'part3', and/or 'part4' keys.");
+        }
         $s = DIRECTORY_SEPARATOR;
         $this->initI18N(__DIR__);
         $this->setLanguage('bootstrap-datepicker.', __DIR__ . "{$s}assets{$s}", null, '.min.js');
@@ -222,11 +235,9 @@ class DatePicker extends \kartik\base\InputWidget
         $icon = ($type === 'picker') ? 'calendar' : 'remove';
         Html::addCssClass($options, 'input-group-addon kv-date-' . $icon);
         $icon = '<i class="glyphicon glyphicon-' . ArrayHelper::remove($options, 'icon', $icon) . '"></i>';
-        if (empty($options['title'])) {
-            $title = ($type === 'picker') ? Yii::t('kvdate', 'Select date') : Yii::t('kvdate', 'Clear field');
-            if ($title != false) {
-                $options['title'] = $title;
-            }
+        $title = ArrayHelper::getValue($options, 'title', '');
+        if ($title !== false && empty($title)) {
+            $options['title'] = ($type === 'picker') ? Yii::t('kvdate', 'Select date') : Yii::t('kvdate', 'Clear field');
         }
         return Html::tag('span', $icon, $options);
     }
@@ -252,13 +263,21 @@ class DatePicker extends \kartik\base\InputWidget
         if ($this->type == self::TYPE_INPUT) {
             return $input;
         }
+        $part1 = $part2 = $part3 = $part4 = '';
+        if (!empty($this->addon) && ($this->_hasAddon || $this->type == self::TYPE_RANGE)) {
+            $part1 = ArrayHelper::getValue($this->addon, 'part1', '');
+            $part2 = ArrayHelper::getValue($this->addon, 'part2', '');
+            $part3 = ArrayHelper::getValue($this->addon, 'part3', '');
+            $part4 = ArrayHelper::getValue($this->addon, 'part4', '');
+        }
         if ($this->_hasAddon) {
             Html::addCssClass($this->_container, 'date');
             $picker = $this->renderAddon($this->pickerButton);
             $remove = $this->renderAddon($this->removeButton, 'remove');
-            $content = $picker . $remove . $input;
             if ($this->type == self::TYPE_COMPONENT_APPEND) {
-                $content = $input . $remove . $picker;
+                $content = $part1 . $part2 . $input . $part3 . $remove . $picker . $part4;
+            } else {
+                $content = $part1 . $picker . $remove . $part2 . $input . $part3 . $part4;
             }
             return Html::tag('div', $content, $this->_container);
         }
@@ -297,7 +316,9 @@ class DatePicker extends \kartik\base\InputWidget
                     Html::activeTextInput($this->model, $this->attribute2, $this->options2) :
                     Html::textInput($this->name2, $this->value2, $this->options2);
             }
-            return Html::tag('div', "{$input}<span class='input-group-addon kv-field-separator'>{$this->separator}</span>{$input2}", $this->_container);
+            $content = $part1 . $input . $part2 . "<span class='input-group-addon kv-field-separator'>{$this->separator}</span>" .
+                $part3 . $input2 . $part4;
+            return Html::tag('div', $content, $this->_container);
         }
         if ($this->type == self::TYPE_INLINE) {
             $this->_id = $this->options['id'] . '-inline';
@@ -332,13 +353,15 @@ class DatePicker extends \kartik\base\InputWidget
         } else {
             $this->registerPlugin($this->pluginName, "{$id}.parent()");
         }
-        if ($this->removeButton !== false && $this->_hasAddon) {
-            $view->registerJs("{$id}.parent().find('.kv-date-remove').on('click', function() {
-            {$id}.parent().{$this->pluginName}('clearDates');
-            });");
+        if ($this->_hasAddon && $this->removeButton !== false) {
+            $view->registerJs("initDPRemove('" . $this->options['id'] . "');");
+        }
+        if ($this->_hasAddon && !empty($this->addon)) {
+            $view->registerJs("initDPAddon('" . $this->options['id'] . "');");
         }
         if ($this->type === self::TYPE_RANGE) {
             \kartik\field\FieldRangeAsset::register($view);
+            $view->registerJs("initDPRemove('" . $this->options['id'] . "', true);");
         }
     }
 }

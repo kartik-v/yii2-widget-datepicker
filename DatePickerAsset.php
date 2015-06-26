@@ -17,7 +17,6 @@ namespace kartik\date;
  */
 class DatePickerAsset extends \kartik\base\AssetBundle
 {
-
     public function init()
     {
         $this->setSourcePath(__DIR__ . '/assets');
