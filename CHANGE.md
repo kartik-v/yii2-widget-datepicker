@@ -1,6 +1,6 @@
 version 1.3.3
 =============
-**Date:** 27-Jun-2015
+**Date:** 18-Jul-2015
 
 - (enh #27): Enhance plugin to use no conflict approach.
 - (enh #28): Update to latest version of bootstrap-datepicker.
@@ -9,6 +9,7 @@ version 1.3.3
 - (bug #35): Parse `title` correctly for calendar/remove button addon.
 - (enh #36): Configure addon for prepend, append, and range.
 - (enh #39): Add Spanish translations.
+- (enh #43): Correct triggering of `changeDate` event for `DatePicker::TYPE_INLINE`.
 
 version 1.3.2
 =============
