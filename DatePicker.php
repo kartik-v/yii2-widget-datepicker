@@ -348,7 +348,7 @@ class DatePicker extends \kartik\base\InputWidget
         $this->options['data-datepicker-type'] = $this->type;
         if ($this->type === self::TYPE_INLINE) {
             $cont = "jQuery('#" . $this->_container['id'] . "')";
-            $view->registerJs("{$cont}.on('changeDate', function(e){{$id}.val(e.format());});");
+            $view->registerJs("{$cont}.on('changeDate', function(e){{$id}.val(e.format()).trigger('change');});");
             $this->registerPlugin($this->pluginName, $cont);
         } elseif ($this->type === self::TYPE_INPUT) {
             $this->registerPlugin($this->pluginName);
