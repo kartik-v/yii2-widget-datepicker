@@ -186,6 +186,11 @@ class DatePicker extends \kartik\base\InputWidget
         $this->setLanguage('bootstrap-datepicker.', __DIR__ . "{$s}assets{$s}", null, '.min.js');
         $this->parseDateFormat('date');
         $this->_id = ($this->type == self::TYPE_INPUT) ? 'jQuery("#' . $this->options['id'] . '")' : 'jQuery("#' . $this->options['id'] . '").parent()';
+        if ($this->type == self::TYPE_INLINE) {
+            $this->_id = $this->options['id'] . '-inline';
+            $this->_container['id'] = $this->_id;
+            $this->_container['data-date'] = $this->value;
+        }
         $this->registerAssets();
         echo $this->renderInput();
     }
@@ -321,8 +326,6 @@ class DatePicker extends \kartik\base\InputWidget
             return Html::tag('div', $content, $this->_container);
         }
         if ($this->type == self::TYPE_INLINE) {
-            $this->_id = $this->options['id'] . '-inline';
-            $this->_container['id'] = $this->_id;
             return Html::tag('div', '', $this->_container) . $input;
         }
     }
@@ -343,10 +346,11 @@ class DatePicker extends \kartik\base\InputWidget
         }
         $id = "jQuery('#" . $this->options['id'] . "')";
         $this->options['data-datepicker-type'] = $this->type;
-        if ($this->type == self::TYPE_INLINE) {
-            $view->registerJs("{$id}.on('changeDate', function(e){\$(this).val(e.format());});");
-        }
-        if ($this->type === self::TYPE_INPUT) {
+        if ($this->type === self::TYPE_INLINE) {
+            $cont = "jQuery('#" . $this->_container['id'] . "')";
+            $view->registerJs("{$cont}.on('changeDate', function(e){{$id}.val(e.format());});");
+            $this->registerPlugin($this->pluginName, $cont);
+        } elseif ($this->type === self::TYPE_INPUT) {
             $this->registerPlugin($this->pluginName);
         } elseif ($this->type === self::TYPE_RANGE && isset($this->form)) {
             $this->registerPlugin($this->pluginName, "{$id}.parent().parent()");

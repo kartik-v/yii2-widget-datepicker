@@ -10,6 +10,7 @@ version 1.3.3
 - (enh #36): Configure addon for prepend, append, and range.
 - (enh #39): Add Spanish translations.
 - (enh #43): Correct triggering of `changeDate` event for `DatePicker::TYPE_INLINE`.
+- (enh #44): Fix markup for `DatePicker::TYPE_INLINE`.
 
 version 1.3.2
 =============
