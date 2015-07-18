@@ -9,6 +9,8 @@ version 1.3.3
 - (bug #35): Parse `title` correctly for calendar/remove button addon.
 - (enh #36): Configure addon for prepend, append, and range.
 - (enh #39): Add Spanish translations.
+- (enh #40): Add Latvian translations.
+- (enh #41): Add Chinese translations.
 - (enh #43): Correct triggering of `changeDate` event for `DatePicker::TYPE_INLINE`.
 - (enh #44): Fix markup for `DatePicker::TYPE_INLINE`.
 
