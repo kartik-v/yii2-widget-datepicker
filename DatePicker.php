@@ -135,11 +135,6 @@ class DatePicker extends \kartik\base\InputWidget
     public $separator = 'to';
 
     /**
-     * @var string identifier for the target DatePicker element
-     */
-    private $_id;
-
-    /**
      * @var array the HTML options for the DatePicker container
      */
     private $_container = [];
@@ -185,12 +180,12 @@ class DatePicker extends \kartik\base\InputWidget
         $this->initI18N(__DIR__);
         $this->setLanguage('bootstrap-datepicker.', __DIR__ . "{$s}assets{$s}", null, '.min.js');
         $this->parseDateFormat('date');
-        $this->_id = ($this->type == self::TYPE_INPUT) ? 'jQuery("#' . $this->options['id'] . '")' : 'jQuery("#' . $this->options['id'] . '").parent()';
+        $this->_container['id'] = $this->options['id'] . '-' . $this->_msgCat;
         if ($this->type == self::TYPE_INLINE) {
-            $this->_id = $this->options['id'] . '-inline';
-            $this->_container['id'] = $this->_id;
             $this->_container['data-date'] = $this->value;
         }
+        $this->options['data-datepicker-source'] = $this->type == self::TYPE_INPUT ? $this->options['id'] : $this->_container['id'];
+        $this->options['data-datepicker-type'] = $this->type;
         $this->registerAssets();
         echo $this->renderInput();
     }
@@ -345,17 +340,10 @@ class DatePicker extends \kartik\base\InputWidget
             DatePickerAsset::register($view);
         }
         $id = "jQuery('#" . $this->options['id'] . "')";
-        $this->options['data-datepicker-type'] = $this->type;
+        $el = "jQuery('#" . $this->options['data-datepicker-source'] . "')";
+        $this->registerPlugin($this->pluginName, $el);
         if ($this->type === self::TYPE_INLINE) {
-            $cont = "jQuery('#" . $this->_container['id'] . "')";
-            $view->registerJs("{$cont}.on('changeDate', function(e){{$id}.val(e.format()).trigger('change');});");
-            $this->registerPlugin($this->pluginName, $cont);
-        } elseif ($this->type === self::TYPE_INPUT) {
-            $this->registerPlugin($this->pluginName);
-        } elseif ($this->type === self::TYPE_RANGE && isset($this->form)) {
-            $this->registerPlugin($this->pluginName, "{$id}.parent().parent()");
-        } else {
-            $this->registerPlugin($this->pluginName, "{$id}.parent()");
+            $view->registerJs("{$el}.on('changeDate',function(e){{$id}.val(e.format()).trigger('change')});");
         }
         if ($this->_hasAddon && $this->removeButton !== false) {
             $view->registerJs("initDPRemove('" . $this->options['id'] . "');");
