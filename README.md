@@ -34,7 +34,7 @@ or add
 "kartik-v/yii2-widget-datepicker": "@dev"
 ```
 
-to the ```require``` section of your `composer.json` file.
+to the `require` section of your `composer.json` file.
 
 ## Latest Release
 
