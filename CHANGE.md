@@ -3,7 +3,7 @@ Change Log: `yii2-widget-datepicker`
 
 ## version 1.3.3
 
-**Date:** 18-Jul-2015
+**Date:** 19-Jul-2015
 
 - (enh #27): Enhance plugin to use no conflict approach.
 - (enh #28): Update to latest ## version of bootstrap-datepicker.
