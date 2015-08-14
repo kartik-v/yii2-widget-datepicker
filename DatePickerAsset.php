@@ -4,7 +4,7 @@
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  * @package yii2-widgets
  * @subpackage yii2-widget-datepicker
- * @version 1.3.3
+ * @version 1.3.4
  */
 
 namespace kartik\date;
