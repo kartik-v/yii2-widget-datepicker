@@ -25,7 +25,7 @@ use kartik\base\InputWidget;
  * @since 1.0
  * @see http://eternicode.github.io/bootstrap-datepicker/
  */
-class DatePicker extends InputWIdget
+class DatePicker extends InputWidget
 {
     const CALENDAR_ICON = '<i class="glyphicon glyphicon-calendar"></i>';
     const TYPE_INPUT = 1;
