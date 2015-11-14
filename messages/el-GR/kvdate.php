@@ -20,5 +20,3 @@ return [
     'Clear field' => 'Καθαρισμός',
     'Select date' => 'Επιλογή ημερ/νίας',
 ];
-
-    Status API Training Shop Blog About Help
