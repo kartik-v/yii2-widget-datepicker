@@ -39,5 +39,8 @@ var initDPRemove = function () {
                 $el.kvDatepicker('hide');
             });
         });
+        $el.find('.input-group-addon.kv-date-calendar').on('click.kvdatepicker', function() {
+            $id.focus();
+        });
     };
 })(window.jQuery);

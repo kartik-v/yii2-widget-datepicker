@@ -14,6 +14,7 @@ Change Log: `yii2-widget-datepicker`
 - (enh #50): Add French Translations.
 - (enh #52): Fixed class name in DatePicker.
 - (enh #55): Enhance plugin to validate `enableOnReadonly` correctly for all layout types.
+- (enh #56): Enhance widget to focus the input on opening datepicker via addon icon.
 - (enh #59): Clean up Greek translations
 - (enh #61): Add Swedish Translations.
 - (enh #62): Add Turkish Translations.

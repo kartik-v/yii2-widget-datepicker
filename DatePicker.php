@@ -150,7 +150,14 @@ class DatePicker extends InputWidget
      */
     protected $_hasAddon = false;
 
-    protected $pluginName = 'kvDatepicker';
+    /**
+     * @inheritdoc
+     */
+    public $pluginName = 'kvDatepicker';
+
+    /**
+     * @inheritdoc
+     */
     protected $_msgCat = 'kvdate';
     
     /**
