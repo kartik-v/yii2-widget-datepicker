@@ -458,8 +458,9 @@
 		},
 
 		show: function(){
-            var el = this.element.is('input') ? this.element : this.element.find('input.krajee-datepicker');
-			if (el.attr('readonly') && this.o.enableOnReadonly === false)
+			// validate specifically for Krajee Yii2 Datepicker container and layout enhancements
+			var el = this.element.is('input') ? this.element : this.element.find('input.krajee-datepicker');
+			if (el.attr('readonly') && this.o.enableOnReadonly === false) {
 				return;
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
