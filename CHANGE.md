@@ -13,6 +13,7 @@ Change Log: `yii2-widget-datepicker`
     - Will be applicable for `TYPE_COMPONENT_PREPEND`, `TYPE_COMPONENT_APPEND`, and `TYPE_RANGE`.
 - (enh #50): Add French Translations.
 - (enh #52): Fixed class name in DatePicker.
+- (enh #55): Enhance plugin to validate `enableOnReadonly` correctly for all layout types.
 - (enh #59): Clean up Greek translations
 - (enh #61): Add Swedish Translations.
 - (enh #62): Add Turkish Translations.

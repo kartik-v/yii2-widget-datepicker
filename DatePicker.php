@@ -150,16 +150,23 @@ class DatePicker extends InputWidget
      */
     protected $_hasAddon = false;
 
+    protected $pluginName = 'kvDatepicker';
+    protected $_msgCat = 'kvdate';
+    
     /**
-     * Initializes the widget
-     *
-     * @throw InvalidConfigException
+     * @inheritdoc
      */
-    public function init()
+    public function run()
     {
-        $this->_msgCat = 'kvdate';
-        $this->pluginName = 'kvDatepicker';
-        parent::init();
+        parent::run();
+        $this->renderDatePicker();
+    }
+
+    /**
+     * Renders the date picker widget
+     */
+    protected function renderDatePicker()
+    {
         $this->validateConfig();
         $this->_hasAddon = $this->type == self::TYPE_COMPONENT_PREPEND || $this->type == self::TYPE_COMPONENT_APPEND;
         $s = DIRECTORY_SEPARATOR;
@@ -179,12 +186,12 @@ class DatePicker extends InputWidget
                 $this->layout = '{input1}{separator}{input2}';
             }
         }
+        Html::addCssClass($this->options, 'krajee-datepicker');
         $this->options['data-datepicker-source'] = $this->type == self::TYPE_INPUT ? $this->options['id'] : $this->_container['id'];
         $this->options['data-datepicker-type'] = $this->type;
         $this->registerAssets();
         echo $this->renderInput();
     }
-
     /**
      * Raise an error exception
      *
