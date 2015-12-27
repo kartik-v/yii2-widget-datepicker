@@ -19,6 +19,7 @@ Change Log: `yii2-widget-datepicker`
 - (enh #61): Add Swedish Translations.
 - (enh #62): Add Turkish Translations.
 - Update to latest stable release (v1.5.0) of bootstrap-datepicker plugin.
+- Refactor code and code formatting improvements.
 
 ## version 1.3.3
 

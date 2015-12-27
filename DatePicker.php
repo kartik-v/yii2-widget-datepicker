@@ -15,11 +15,11 @@ use yii\helpers\ArrayHelper;
 use yii\base\InvalidConfigException;
 use yii\widgets\ActiveForm;
 use kartik\base\InputWidget;
+use kartik\field\FieldRangeAsset;
 
 /**
- * DatePicker widget is a Yii2 wrapper for the Bootstrap DatePicker plugin. The
- * plugin is a fork of Stefan Petre's DatePicker (of eyecon.ro), with improvements
- * by @eternicode.
+ * DatePicker widget is a Yii2 wrapper for the Bootstrap DatePicker plugin. The plugin is a fork of Stefan Petre's
+ * DatePicker (of eyecon.ro), with improvements by @eternicode.
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.0
@@ -36,9 +36,8 @@ class DatePicker extends InputWidget
     const TYPE_BUTTON = 6;
 
     /**
-     * @var string the markup type of widget markup
-     * must be one of the TYPE constants. Defaults
-     * to [[TYPE_COMPONENT_PREPEND]]
+     * @var string the markup type of widget markup must be one of the TYPE constants. Defaults to
+     *     [[TYPE_COMPONENT_PREPEND]]
      */
     public $type = self::TYPE_COMPONENT_PREPEND;
 
@@ -48,14 +47,14 @@ class DatePicker extends InputWidget
     public $size;
 
     /**
-     * @var ActiveForm the ActiveForm object which you can pass for seamless usage with ActiveForm. This
-     * property is especially useful for client validation of `attribute2` for [[TYPE_RANGE]] validation.
+     * @var ActiveForm the ActiveForm object which you can pass for seamless usage with ActiveForm. This property is
+     *     especially useful for client validation of `attribute2` for [[TYPE_RANGE]] validation.
      */
     public $form;
 
     /**
-     * @var array the HTML attributes for the button that is rendered for [[DatePicker::TYPE_BUTTON]].
-     * Defaults to `['class'=>'btn btn-default']`. The following special options are recognized:
+     * @var array the HTML attributes for the button that is rendered for [[DatePicker::TYPE_BUTTON]]. Defaults to
+     *     `['class'=>'btn btn-default']`. The following special options are recognized:
      * - 'label': string the button label. Defaults to `<i class="glyphicon glyphicon-calendar"></i>`
      */
     public $buttonOptions = [];
@@ -67,8 +66,8 @@ class DatePicker extends InputWidget
 
     /**
      * @var string the layout template to display the buttons (applicable only  when `type` is one of
-     * TYPE_COMPONENT_PREPEND or TYPE_COMPONENT_APPEND or TYPE_RANGE). The following tags will be parsed
-     * and replaced for TYPE_COMPONENT_PREPEND or TYPE_COMPONENT_APPEND :
+     *     TYPE_COMPONENT_PREPEND or TYPE_COMPONENT_APPEND or TYPE_RANGE). The following tags will be parsed and
+     *     replaced for TYPE_COMPONENT_PREPEND or TYPE_COMPONENT_APPEND :
      * - `{picker}`: will be replaced with the date picker button (rendered as a bootstrap input group addon).
      * - `{remove}`: will be replaced with the date clear/remove button (rendered as a bootstrap input group addon).
      * - `{input}`: will be replaced with the HTML input markup that stores the date.
@@ -97,8 +96,8 @@ class DatePicker extends InputWidget
     public $pickerButton = [];
 
     /**
-     * @var mixed the calendar remove button configuration - applicable only for type
-     * set to `DatePicker::TYPE_COMPONENT_PREPEND` or `DatePicker::TYPE_COMPONENT_APPEND`.
+     * @var mixed the calendar remove button configuration - applicable only for type set to
+     *     `DatePicker::TYPE_COMPONENT_PREPEND` or `DatePicker::TYPE_COMPONENT_APPEND`.
      * - if this is passed as a string, it will be displayed as is (will not be HTML encoded).
      * - if this is set to false, the remove button will not be displayed.
      * - if this is passed as an array (this is the DEFAULT) it will treat this as HTML attributes
@@ -110,33 +109,27 @@ class DatePicker extends InputWidget
     public $removeButton = [];
 
     /**
-     * @var string the model attribute 2 if you are using [[TYPE_RANGE]]
-     * for markup.
+     * @var string the model attribute 2 if you are using [[TYPE_RANGE]] for markup.
      */
     public $attribute2;
 
     /**
-     * @var string the name of input number 2 if you are using [[TYPE_RANGE]]
-     * for markup
+     * @var string the name of input number 2 if you are using [[TYPE_RANGE]] for markup
      */
     public $name2;
 
     /**
-     * @var string the name of value for input number 2 if you are using [[TYPE_RANGE]]
-     * for markup
+     * @var string the name of value for input number 2 if you are using [[TYPE_RANGE]] for markup
      */
     public $value2 = null;
 
     /**
-     * @var array the HTML attributes for the input number 2 tag.
-     * if you are using [[TYPE_RANGE]] for markup
+     * @var array the HTML attributes for the input number 2 tag. if you are using [[TYPE_RANGE]] for markup
      */
     public $options2 = [];
 
     /**
-     * @var string the range input separator
-     * if you are using [[TYPE_RANGE]] for markup.
-     * Defaults to 'to'
+     * @var string the range input separator if you are using [[TYPE_RANGE]] for markup. Defaults to 'to'.
      */
     public $separator = 'to';
 
@@ -159,7 +152,7 @@ class DatePicker extends InputWidget
      * @inheritdoc
      */
     protected $_msgCat = 'kvdate';
-    
+
     /**
      * @inheritdoc
      */
@@ -199,6 +192,7 @@ class DatePicker extends InputWidget
         $this->registerAssets();
         echo $this->renderInput();
     }
+
     /**
      * Raise an error exception
      *
@@ -248,8 +242,8 @@ class DatePicker extends InputWidget
     }
 
     /**
-     * Renders the source input for the DatePicker plugin. Graceful fallback to a normal HTML  text input
-     * in case JQuery is not supported by the browser
+     * Renders the source input for the DatePicker plugin. Graceful fallback to a normal HTML  text input in case
+     * JQuery is not supported by the browser
      *
      * @return string
      */
@@ -406,7 +400,7 @@ class DatePicker extends InputWidget
             $view->registerJs("initDPAddon('" . $this->options['id'] . "');");
         }
         if ($this->type === self::TYPE_RANGE) {
-            \kartik\field\FieldRangeAsset::register($view);
+            FieldRangeAsset::register($view);
             $view->registerJs("initDPRemove('" . $this->options['id'] . "', true);");
         }
     }

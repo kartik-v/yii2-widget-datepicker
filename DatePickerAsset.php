@@ -9,13 +9,15 @@
 
 namespace kartik\date;
 
+use kartik\base\AssetBundle;
+
 /**
  * Asset bundle for DatePicker Widget
  *
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @since 1.0
  */
-class DatePickerAsset extends \kartik\base\AssetBundle
+class DatePickerAsset extends AssetBundle
 {
     public function init()
     {
