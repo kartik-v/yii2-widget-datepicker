@@ -3,7 +3,7 @@ Change Log: `yii2-widget-datepicker`
 
 ## version 1.3.4
 
-**Date:** 14-Aug-2015
+**Date:** 27-Dec-2015
 
 - (enh #45): Add Greek translations.
 - (enh #46): Add Polish translations.
@@ -11,6 +11,12 @@ Change Log: `yii2-widget-datepicker`
     - New property `layout` to control rendering of picker and remove buttons and add your own input group addons if necessary.
     - The `addon` property will be removed as the `layout` property will allow better control for adding custom bootstrap input group addons.
     - Will be applicable for `TYPE_COMPONENT_PREPEND`, `TYPE_COMPONENT_APPEND`, and `TYPE_RANGE`.
+- (enh #50): Add French Translations.
+- (enh #52): Fixed class name in DatePicker.
+- (enh #59): Clean up Greek translations
+- (enh #61): Add Swedish Translations.
+- (enh #62): Add Turkish Translations.
+- Update to latest stable release (v1.5.0) of bootstrap-datepicker plugin.
 
 ## version 1.3.3
 
