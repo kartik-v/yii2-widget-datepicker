@@ -7,6 +7,7 @@ Change Log: `yii2-widget-datepicker`
 
 - (bug #63): Fix extra brace bug in plugin JS code.
 - (enh #64): Enhance and improve language & locale validation.
+- (enh #65): Enhance styling for INLINE layout.
 
 ## version 1.3.4
 

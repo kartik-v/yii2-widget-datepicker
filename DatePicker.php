@@ -250,15 +250,12 @@ class DatePicker extends InputWidget
      */
     protected function renderInput()
     {
+        Html::addCssClass($this->options, 'form-control');
         if ($this->type == self::TYPE_INLINE) {
             if (empty($this->options['readonly'])) {
                 $this->options['readonly'] = true;
             }
-            if (empty($this->options['class'])) {
-                $this->options['class'] = 'form-control input-sm text-center';
-            }
-        } else {
-            Html::addCssClass($this->options, 'form-control');
+            $this->options['class'] .= ' input-sm text-center';
         }
         if (isset($this->form) && ($this->type !== self::TYPE_RANGE)) {
             $vars = call_user_func('get_object_vars', $this);
