@@ -4,7 +4,7 @@
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  * @package yii2-widgets
  * @subpackage yii2-widget-datepicker
- * @version 1.3.4
+ * @version 1.3.5
  */
 
 namespace kartik\date;
@@ -86,12 +86,12 @@ class DatePicker extends InputWidget
     /**
      * @var mixed the calendar picker button configuration.
      * - if this is passed as a string, it will be displayed as is (will not be HTML encoded).
-     * - if this is set to false, the picker button will not be displayed.
-     * - if this is passed as an array (this is the DEFAULT) it will treat this as HTML attributes
-     *   for the button (to be displayed as a Bootstrap addon). The following special keys are recognized;
-     *   - icon - string, the bootstrap glyphicon name/suffix. Defaults to 'calendar'.
-     *   - title - string|bool, the title to be displayed on hover. Defaults to 'Select date & time'. To disable,
-     *     set it to `false`.
+     * - if this is set to `false`, the picker button will not be displayed.
+     * - if this is passed as an array (this is the DEFAULT) it will treat this as HTML attributes for the button (to
+     *     be displayed as a Bootstrap addon). The following special keys are recognized;
+     *   - icon: string, the bootstrap glyphicon name/suffix. Defaults to 'calendar'.
+     *   - title: string|bool, the title to be displayed on hover. Defaults to 'Select date & time'. To disable, set it
+     *     to `false`.
      */
     public $pickerButton = [];
 
@@ -99,12 +99,12 @@ class DatePicker extends InputWidget
      * @var mixed the calendar remove button configuration - applicable only for type set to
      *     `DatePicker::TYPE_COMPONENT_PREPEND` or `DatePicker::TYPE_COMPONENT_APPEND`.
      * - if this is passed as a string, it will be displayed as is (will not be HTML encoded).
-     * - if this is set to false, the remove button will not be displayed.
-     * - if this is passed as an array (this is the DEFAULT) it will treat this as HTML attributes
-     *   for the button (to be displayed as a Bootstrap addon). The following special keys are recognized;
+     * - if this is set to `false`, the remove button will not be displayed.
+     * - if this is passed as an array (this is the DEFAULT) it will treat this as HTML attributes for the button (to
+     *     be displayed as a Bootstrap addon). The following special keys are recognized;
      *   - icon - string, the bootstrap glyphicon name/suffix. Defaults to 'remove'.
-     *   - title - string, the title to be displayed on hover. Defaults to 'Clear field'. To disable,
-     *     set it to `false`.
+     *   - title - string, the title to be displayed on hover. Defaults to 'Clear field'. To disable, set it to
+     *     `false`.
      */
     public $removeButton = [];
 
@@ -178,16 +178,17 @@ class DatePicker extends InputWidget
             $this->_container['data-date'] = $this->value;
         }
         if (empty($this->layout)) {
-            if ($this->type == self::TYPE_COMPONENT_PREPEND) {
+            if ($this->type === self::TYPE_COMPONENT_PREPEND) {
                 $this->layout = '{picker}{remove}{input}';
-            } elseif ($this->type == self::TYPE_COMPONENT_APPEND) {
+            } elseif ($this->type === self::TYPE_COMPONENT_APPEND) {
                 $this->layout = '{input}{remove}{picker}';
-            } elseif ($this->type == self::TYPE_RANGE) {
+            } elseif ($this->type === self::TYPE_RANGE) {
                 $this->layout = '{input1}{separator}{input2}';
             }
         }
         Html::addCssClass($this->options, 'krajee-datepicker');
-        $this->options['data-datepicker-source'] = $this->type == self::TYPE_INPUT ? $this->options['id'] : $this->_container['id'];
+        $this->options['data-datepicker-source'] = $this->type === self::TYPE_INPUT ? $this->options['id'] :
+            $this->_container['id'];
         $this->options['data-datepicker-type'] = $this->type;
         $this->registerAssets();
         echo $this->renderInput();
@@ -213,14 +214,14 @@ class DatePicker extends InputWidget
     protected function validateConfig()
     {
         if ($this->type < 1 || $this->type > 6 || !is_int($this->type)) {
-            self::err("Invalid value for the property 'type'. Must be an integer between 1 and 6.");
+            static::err("Invalid value for the property 'type'. Must be an integer between 1 and 6.");
         }
         if ($this->type === self::TYPE_RANGE) {
             if ($this->attribute2 === null && $this->name2 === null) {
-                self::err("Either 'name2' or 'attribute2' properties must be specified for a datepicker 'range' markup.");
+                static::err("Either 'name2' or 'attribute2' properties must be specified for a datepicker 'range' markup.");
             }
-            if (!class_exists('\\kartik\\field\\FieldRangeAsset')) {
-                self::err(
+            if (!class_exists("\\kartik\\field\\FieldRangeAsset")) {
+                static::err(
                     "The yii2-field-range extension is not installed and is a pre-requisite for a DatePicker " .
                     "RANGE type. To install this extension run this command on your console: \n\n" .
                     "php composer.phar require kartik-v/yii2-field-range \"*\""
@@ -231,13 +232,13 @@ class DatePicker extends InputWidget
             return;
         }
         if (!$this->form instanceof ActiveForm) {
-            self::err("The 'form' property must be of type \\yii\\widgets\\ActiveForm");
+            static::err("The 'form' property must be of type \\yii\\widgets\\ActiveForm");
         }
         if (!$this->hasModel()) {
-            self::err("You must set the 'model' and 'attribute' properties when the 'form' property is set.");
+            static::err("You must set the 'model' and 'attribute' properties when the 'form' property is set.");
         }
         if ($this->type === self::TYPE_RANGE && !isset($this->attribute2)) {
-            self::err("The 'attribute2' property must be set for a 'range' type markup and a defined 'form' property.");
+            static::err("The 'attribute2' property must be set for a 'range' type markup and a defined 'form' property.");
         }
     }
 
@@ -383,25 +384,25 @@ class DatePicker extends InputWidget
         }
         $view = $this->getView();
         if (!empty($this->_langFile)) {
-            DatePickerAsset::register($view)->js[] = $this->_langFile;
-        } else {
-            DatePickerAsset::register($view);
+            LanguageAsset::register($view)->js[] = $this->_langFile;
         }
-        $id = "jQuery('#" . $this->options['id'] . "')";
+        DatePickerAsset::register($view);
+        $id = $this->options['id'];
+        $input = "jQuery('#{$id}')";
         $el = "jQuery('#" . $this->options['data-datepicker-source'] . "')";
         $this->registerPlugin($this->pluginName, $el);
         if ($this->type === self::TYPE_INLINE) {
-            $view->registerJs("{$el}.on('changeDate',function(e){{$id}.val(e.format()).trigger('change')});");
+            $view->registerJs("{$el}.on('changeDate',function(e){{$input}.val(e.format()).trigger('change')});");
         }
         if ($this->_hasAddon && $this->removeButton !== false) {
-            $view->registerJs("initDPRemove('" . $this->options['id'] . "');");
+            $view->registerJs("initDPRemove('{$id}');");
         }
         if ($this->_hasAddon) {
-            $view->registerJs("initDPAddon('" . $this->options['id'] . "');");
+            $view->registerJs("initDPAddon('{$id}');");
         }
         if ($this->type === self::TYPE_RANGE) {
             FieldRangeAsset::register($view);
-            $view->registerJs("initDPRemove('" . $this->options['id'] . "', true);");
+            $view->registerJs("initDPRemove('{$id}', true);");
         }
     }
 }

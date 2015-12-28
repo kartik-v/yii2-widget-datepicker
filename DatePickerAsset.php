@@ -4,7 +4,7 @@
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
  * @package yii2-widgets
  * @subpackage yii2-widget-datepicker
- * @version 1.3.4
+ * @version 1.3.5
  */
 
 namespace kartik\date;
@@ -19,6 +19,14 @@ use kartik\base\AssetBundle;
  */
 class DatePickerAsset extends AssetBundle
 {
+    /**
+     * @inheritdoc
+     */
+    public $depends = ['\kartik\date\LanguageAsset'];
+
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         $this->setSourcePath(__DIR__ . '/assets');
