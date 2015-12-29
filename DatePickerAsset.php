@@ -22,11 +22,6 @@ class DatePickerAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $depends = ['\kartik\date\LanguageAsset'];
-
-    /**
-     * @inheritdoc
-     */
     public function init()
     {
         $this->setSourcePath(__DIR__ . '/assets');

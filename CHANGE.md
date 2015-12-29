@@ -1,13 +1,18 @@
 Change Log: `yii2-widget-datepicker`
 ====================================
 
+## version 1.3.6
+
+**Date:** 29-Dec-2015
+
+- (bug #67): Correct init of locale dates for `$.fn.kvDatepicker`.
+
 ## version 1.3.5
 
 **Date:** 28-Dec-2015
 
 - (bug #63): Fix extra brace bug in plugin JS code.
 - (enh #64): Enhance and improve language & locale validation.
-- (enh #65): Enhance styling for INLINE layout.
 
 ## version 1.3.4
 
