@@ -1,6 +1,13 @@
 Change Log: `yii2-widget-datepicker`
 ====================================
 
+## version 1.3.7
+
+**Date:** 10-Jan-2016
+
+- (enh #68): Add Czech translations
+- Update year.
+
 ## version 1.3.6
 
 **Date:** 29-Dec-2015
