@@ -1,6 +1,12 @@
 Change Log: `yii2-widget-datepicker`
 ====================================
 
+## version 1.3.8
+
+**Date:** 11-Feb-2016
+
+- (bug #75): Enhance clear button method to trigger input change correctly.
+
 ## version 1.3.7
 
 **Date:** 10-Jan-2016
