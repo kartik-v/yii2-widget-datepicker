@@ -1,6 +1,12 @@
 Change Log: `yii2-widget-datepicker`
 ====================================
 
+## version 1.3.9
+
+**Date:** 29-Mar-2016
+
+- (bug #85): Correct locale files to use `kvDatepicker` modified plugin instance.
+
 ## version 1.3.8
 
 **Date:** 25-Mar-2016
