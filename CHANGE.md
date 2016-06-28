@@ -1,6 +1,13 @@
 Change Log: `yii2-widget-datepicker`
 ====================================
 
+## version 1.4.0
+
+**Date:** 28-Jun-2016
+
+- (enh #86): Add Thai translations.
+- (enh #95): Update to latest release v1.7 of bootstrap datepicker plugin.
+
 ## version 1.3.9
 
 **Date:** 29-Mar-2016
@@ -13,7 +20,7 @@ Change Log: `yii2-widget-datepicker`
 
 - (bug #75): Enhance clear button method to trigger input change correctly.
 - Add branch alias for dev-master latest release.
-- (enh #78): Add Slovak Translations.
+- (enh #78): Add Slovak translations.
 - (enh #84): Update to latest version 1.6.x of `bootstrap-datepicker` plugin.
 
 ## version 1.3.7
