@@ -382,7 +382,9 @@ class DatePicker extends InputWidget
         $view = $this->getView();
         $view->registerJs('jQuery.fn.kvDatepicker.dates={};');
         if (!empty($this->_langFile)) {
-            DatePickerAsset::register($view)->js[] = $this->_langFile;
+            $firstJs = array_shift(DatePickerAsset::register($view)->js);
+            array_unshift(DatePickerAsset::register($view)->js, $this->_langFile);
+            array_unshift(DatePickerAsset::register($view)->js, $firstJs);
         } else {
             DatePickerAsset::register($view);
         }
