@@ -93,7 +93,7 @@ class DatePicker extends InputWidget
      * - `{picker}`: will be replaced with the date picker button (rendered as a bootstrap input group addon).
      * - `{remove}`: will be replaced with the date clear/remove button (rendered as a bootstrap input group addon).
      * - `{input}`: will be replaced with the HTML input markup that stores the date.
-     * For TYPE_RANGE the following tags will be parsed and replaced:
+     * When [[type]] is set to [[TYPE_RANGE]] the following tags will be parsed and replaced:
      * - `{input1}`: will be replaced with the HTML input markup that stores the date for attribute1.
      * - `{separator}`: will be replaced with the input group addon for field range separator. The text for the
      *    separator is set via the `separator` property.
