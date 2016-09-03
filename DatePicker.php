@@ -18,10 +18,12 @@ use kartik\base\InputWidget;
 use kartik\field\FieldRangeAsset;
 
 /**
- * DatePicker widget is a Yii2 wrapper for the Bootstrap DatePicker plugin by @eternicode. This plugin provides 
- * a flexible datepicker widget in Bootstrap style. This widget by Krajee also adds additional enhancements and 
- * features to the core plugin like rendering bootstrap addons better and allows a date remove addon button
- * configuration It also adds ability to configure attributes for a date range and integrates with the
+ * DatePicker widget is a Yii2 wrapper for the Bootstrap DatePicker plugin by @eternicode and provides 
+ * a flexible datepicker widget in Bootstrap style. 
+ 
+ * This DatePicker widget by Krajee also includes additional features and enhancements to the core plugin 
+ * like better useful bootstrap addons. It includes an enhanced date clear addon button to clear dates easily.
+ * It also adds ability to configure attributes for a date range and integrates with the 
  * [[\kartik\field\FieldRange]] widget to manage date ranges better.
  *
  * Usage example:
@@ -45,16 +47,35 @@ use kartik\field\FieldRangeAsset;
  * @since 1.0
  * @see http://eternicode.github.io/bootstrap-datepicker/
  */
-
-
 class DatePicker extends InputWidget
 {
+    /**
+     * The markup to render the calendar icon in the date picker button.
+     */
     const CALENDAR_ICON = '<i class="glyphicon glyphicon-calendar"></i>';
+    /**
+     * Datepicker rendered as a plain input.
+     */
     const TYPE_INPUT = 1;
+    /**
+     * Datepicker with the date picker button rendered as a prepended bootstrap addon component
+     */
     const TYPE_COMPONENT_PREPEND = 2;
+    /**
+     * Datepicker with the date picker button rendered as a appended bootstrap addon component
+     */
     const TYPE_COMPONENT_APPEND = 3;
+    /**
+     * Datepicker calendar directly rendered inline
+     */
     const TYPE_INLINE = 4;
+    /**
+     * Datepicker range with from and to date inputs
+     */
     const TYPE_RANGE = 5;
+    /**
+     * Datepicker rendered as a picker button without any input
+     */
     const TYPE_BUTTON = 6;
 
     /**
@@ -70,12 +91,12 @@ class DatePicker extends InputWidget
 
     /**
      * @var ActiveForm the ActiveForm object which you can pass for seamless usage with ActiveForm. This property is
-     * especially useful for client validation of `attribute2` for [[TYPE_RANGE]] validation.
+     * especially useful for client validation of [[attribute2]] for [[TYPE_RANGE]] validation.
      */
     public $form;
 
     /**
-     * @var array the HTML attributes for the button that is rendered for [[DatePicker::TYPE_BUTTON]]. Defaults to
+     * @var array the HTML attributes for the button that is rendered for [[TYPE_BUTTON]]. Defaults to
      * `['class'=>'btn btn-default']`. The following special options are recognized:
      * - 'label': string the button label. Defaults to `<i class="glyphicon glyphicon-calendar"></i>`
      */
@@ -87,18 +108,22 @@ class DatePicker extends InputWidget
     public $options = [];
 
     /**
-     * @var string the layout template to display the buttons (applicable only  when `type` is one of
+     * @var string the layout template to display the buttons (applicable only  when [[type]] is set to one of
      * [[TYPE_COMPONENT_PREPEND]] or [[TYPE_COMPONENT_APPEND]] or [[TYPE_RANGE]]). The following tokens will be
      * parsed and replaced when [[type]] is set to one of [[TYPE_COMPONENT_PREPEND]] or [[TYPE_COMPONENT_APPEND]]:
      * - `{picker}`: will be replaced with the date picker button (rendered as a bootstrap input group addon).
      * - `{remove}`: will be replaced with the date clear/remove button (rendered as a bootstrap input group addon).
      * - `{input}`: will be replaced with the HTML input markup that stores the date.
-     * When [[type]] is set to [[TYPE_RANGE]] the following tags will be parsed and replaced:
+     *
+     * When [[type]] is set to [[TYPE_RANGE]] the following tokens will be parsed and replaced:
+     *
      * - `{input1}`: will be replaced with the HTML input markup that stores the date for attribute1.
      * - `{separator}`: will be replaced with the input group addon for field range separator. The text for the
      *    separator is set via the `separator` property.
      * - `{input2}`: will be replaced with the HTML input markup that stores the date for attribute2.
-     * The `layout` defaults to the following value if not set:
+     *
+     * The [[layout]] property defaults to the following value if not set:
+     *
      * - `{picker}{remove}{input}` for [[TYPE_COMPONENT_PREPEND]]
      * - `{input}{remove}{picker}` for [[TYPE_COMPONENT_APPEND]]
      * - `{input1}{separator}{input2}` for [[TYPE_RANGE]]
@@ -107,7 +132,7 @@ class DatePicker extends InputWidget
 
     /**
      * @var array|string|boolean the calendar picker button configuration.
-     * - if this is passed as a string, it will be displayed as is (will not be HTML encoded).
+     * - if this is passed as a _string_, it will be displayed as is (will not be HTML encoded).
      * - if this is set to `false`, the picker button will not be displayed.
      * - if this is passed as an _array_ (which is the default) it will be parsed as HTML attributes for the button (to
      *   be displayed as a Bootstrap addon). The following special keys are recognized;
@@ -131,49 +156,49 @@ class DatePicker extends InputWidget
     public $removeButton = [];
 
     /**
-     * @var string the model attribute 2 if you are using [[TYPE_RANGE]] for markup.
+     * @var string the model attribute 2 if you are setting [[type]] to [[TYPE_RANGE]] for markup.
      */
     public $attribute2;
 
     /**
-     * @var string the name of input number 2 if you are using [[TYPE_RANGE]] for markup
+     * @var string the name of input number 2 if you are setting [[type]] to [[TYPE_RANGE]] for markup.
      */
     public $name2;
 
     /**
-     * @var string the name of value for input number 2 if you are using [[TYPE_RANGE]] for markup
+     * @var string the name of value for input number 2 if you are setting [[type]] to [[TYPE_RANGE]] for markup.
      */
     public $value2 = null;
 
     /**
-     * @var array the HTML attributes for the input number 2 tag. if you are using [[TYPE_RANGE]] for markup
+     * @var array the HTML attributes for the input number 2 if you are setting [[type]] to [[TYPE_RANGE]] for markup.
      */
     public $options2 = [];
 
     /**
-     * @var string the range input separator if you are using [[TYPE_RANGE]] for markup. Defaults to 'to'.
+     * @var string the range input separator if you are setting [[type]] to [[TYPE_RANGE]] for markup. Defaults to 'to'.
      */
     public $separator = 'to';
 
     /**
-     * @var array the HTML options for the DatePicker container
+     * @var array the HTML options for the DatePicker container.
      */
     private $_container = [];
 
     /**
-     * @var boolean whether a prepend or append addon exists
+     * @var boolean whether a prepend or append addon exists.
      */
     protected $_hasAddon = false;
 
     /**
      * @inheritdoc
      */
-    public $pluginName = 'kvDatepicker';
+    protected $_msgCat = 'kvdate';
 
     /**
      * @inheritdoc
      */
-    protected $_msgCat = 'kvdate';
+    public $pluginName = 'kvDatepicker';
 
     /**
      * @inheritdoc
@@ -217,7 +242,7 @@ class DatePicker extends InputWidget
     }
 
     /**
-     * Raise an error exception.
+     * Raise an invalid configuration exception.
      *
      * @param string $msg the exception message
      *
