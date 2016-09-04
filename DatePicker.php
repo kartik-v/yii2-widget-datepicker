@@ -21,10 +21,10 @@ use kartik\field\FieldRangeAsset;
  * DatePicker widget is a Yii2 wrapper for the Bootstrap DatePicker plugin by @eternicode and provides 
  * a flexible datepicker widget in Bootstrap style. 
  
- * This DatePicker widget by Krajee also includes additional features and enhancements to the core plugin 
- * like better useful bootstrap addons. It includes an enhanced date clear addon button to clear dates easily.
- * It also adds ability to configure attributes for a date range and integrates with the 
- * [[\kartik\field\FieldRange]] widget to manage date ranges better.
+ * This DatePicker widget by Krajee also includes additional features and enhancements to the core plugin like better
+ * useful bootstrap addons. It includes an enhanced date clear addon button to clear dates easily. It also adds ability
+ * to configure and render the datepicker INLINE, or as a BUTTON, or as a date RANGE by integrating with the
+ * [[\kartik\field\FieldRange]] widget.
  *
  * Usage example:
  *
