@@ -15,6 +15,8 @@
  * of the guide for details.
  *
  * NOTE: this file must be saved in UTF-8 encoding.
+ *
+ * @author Vishal Bhalodiya <bhalodiyavishal46@gmail.com>
  */
 return [
     'Clear field' => 'ફીલ્ડ્ ખાલી કરો',
