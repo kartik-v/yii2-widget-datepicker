@@ -1,16 +1,23 @@
 Change Log: `yii2-widget-datepicker`
 ====================================
 
+## version 1.4.4
+
+**Date:** 04-Sep-2017
+
+- (enh #150): Enhance to make `form-control` CSS class the default and yet optional.
+- (enh #149): Add Finnish translations.
+
 ## version 1.4.3
 
 **Date:** 04-Sep-2017
 
 - Add github contribution and issue/PR logging templates.
-- (enh #131): Added Romanian translations.
+- (enh #131): Add Romanian translations.
 - (enh #128): Update bootstrap-datepicker to 1.7.1.
 - (enh #127): Allow overriding the `form-control` input CSS class.
-- (enh #120): Added Estonian translations.
-- (enh #117): Added Dutch (NL) translations.
+- (enh #120): Add Estonian translations.
+- (enh #117): Add Dutch (NL) translations.
 - (enh #116): Add Gujarati and Hindi language translations.
 - (enh #115): Add Indonesian translations.
 
