@@ -414,7 +414,7 @@ class DatePicker extends InputWidget
                 return Html::tag('div', $out, $this->_container);
             case self::TYPE_INLINE:
                 Html::addCssClass($this->options, [$size, $disabled]);
-                return Html::tag('div', '', $this->_container) . $input;
+                return Html::tag('div', $input, $this->_container);
             default:
                 return '';
         }
@@ -439,9 +439,6 @@ class DatePicker extends InputWidget
         $input = "jQuery('#{$id}')";
         $el = "jQuery('#" . $this->options['data-datepicker-source'] . "')";
         $this->registerPlugin($this->pluginName, $el);
-        if ($this->type === self::TYPE_INLINE) {
-            $view->registerJs("{$el}.on('changeDate',function(e){{$input}.val(e.format()).trigger('change')});");
-        }
         if ($this->_hasAddon && $this->removeButton !== false) {
             $view->registerJs("initDPRemove('{$id}');");
         }
