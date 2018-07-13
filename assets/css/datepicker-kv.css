@@ -1,5 +1,5 @@
 /*!
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2017
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
  * @package yii2-widgets
  * @subpackage yii2-widget-datepicker
  * @version 1.4.4
@@ -10,10 +10,6 @@
  * Author: Kartik Visweswaran
  * For more Yii related demos visit http://demos.krajee.com
  */
-.datepicker {
-    z-index: 1151 !important;
-}
-
 .input-group.date.disabled .input-group-addon .glyphicon {
     cursor: not-allowed;
     filter: alpha(opacity=65);

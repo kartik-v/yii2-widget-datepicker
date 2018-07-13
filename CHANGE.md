@@ -3,8 +3,12 @@ Change Log: `yii2-widget-datepicker`
 
 ## version 1.4.4
 
-**Date:** 04-Sep-2017
+**Date:** 13-Jul-2018
 
+- (enh #168): Add Kazakh translations.
+- (enh #166, #165): Simplify INLINE editor behavior.
+- (enh #164, #161, #160): Remove interim z-index fix for BS modal dialog.
+- (enh #154): Add support for jQuery 3.x - update source plugin to v1.8.0.
 - (enh #150): Enhance to make `form-control` CSS class the default and yet optional.
 - (enh #149): Add Finnish translations.
 
