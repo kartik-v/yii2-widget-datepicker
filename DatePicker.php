@@ -440,7 +440,7 @@ class DatePicker extends InputWidget
         $el = "jQuery('#" . $this->options['data-datepicker-source'] . "')";
         $this->registerPlugin($this->pluginName, $el);
         if ($this->type === self::TYPE_INLINE) {
-            $view->registerJs("{$el}.on('changeDate',function(e){{$input}.val(e.format()).trigger('change')});");
+            $view->registerJs("{$el}.on('changeDate',function(e){{$input}.val({$el}.kvDatepicker('getFormattedDate'));});");
         }
         if ($this->_hasAddon && $this->removeButton !== false) {
             $view->registerJs("initDPRemove('{$id}');");
