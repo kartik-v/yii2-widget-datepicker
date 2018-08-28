@@ -4,7 +4,7 @@
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
  * @package yii2-widgets
  * @subpackage yii2-widget-datepicker
- * @version 1.4.5
+ * @version 1.4.6
  */
 
 namespace kartik\date;
@@ -476,9 +476,9 @@ class DatePicker extends InputWidget
         $view = $this->getView();
         $view->registerJs('jQuery.fn.kvDatepicker.dates={};');
         if (!empty($this->_langFile)) {
-            DatePickerAsset::register($view)->js[] = $this->_langFile;
+            DatePickerAsset::registerBundle($view, $this->bsVersion)->js[] = $this->_langFile;
         } else {
-            DatePickerAsset::register($view);
+            DatePickerAsset::register($view, $this->bsVersion);
         }
         $id = $this->options['id'];
         $el = "jQuery('#" . $this->options['data-datepicker-source'] . "')";
