@@ -1,6 +1,8 @@
 /*!
  * Datepicker for Bootstrap v1.7.1 (https://github.com/uxsolutions/bootstrap-datepicker)
  *
+ * Modifications by Kartik Visweswaran, Krajee.com, 2018
+ *
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
 
@@ -23,6 +25,10 @@
 
 .datepicker-rtl table tr td span {
     float: right;
+}
+
+.datepicker-inline {
+    margin-top: 4px;
 }
 
 .datepicker-dropdown {
