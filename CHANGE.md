@@ -1,6 +1,12 @@
 Change Log: `yii2-widget-datepicker`
 ====================================
 
+## Version 1.4.7
+
+**Date:** 09-Oct-2018
+
+- Bump composer dependencies.
+
 ## Version 1.4.6
 
 **Date:** 29-Aug-2018
