@@ -34,7 +34,7 @@
     function alias(method, deprecationMsg) {
         return function () {
             if (deprecationMsg !== undefined) {
-                $.fn.datepicker.deprecated(deprecationMsg);
+                // $.fn.datepicker.deprecated(deprecationMsg);
             }
 
             return this[method].apply(this, arguments);
