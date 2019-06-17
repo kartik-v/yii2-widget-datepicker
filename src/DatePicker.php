@@ -478,7 +478,7 @@ class DatePicker extends InputWidget
         if (!empty($this->_langFile)) {
             DatePickerAsset::registerBundle($view, $this->bsVersion)->js[] = $this->_langFile;
         } else {
-            DatePickerAsset::register($view, $this->bsVersion);
+            DatePickerAsset::registerBundle($view, $this->bsVersion);
         }
         $id = $this->options['id'];
         $el = "jQuery('#" . $this->options['data-datepicker-source'] . "')";
