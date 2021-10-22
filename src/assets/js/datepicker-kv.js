@@ -1,8 +1,8 @@
 /*!
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
  * @package yii2-widgets
  * @subpackage yii2-widget-datepicker
- * @version 1.4.7
+ * @version 1.4.8
  *
  * Extension to bootstrap datepicker to use noconflict approach
  * so that the plugin does not conflict with other jquery plugins

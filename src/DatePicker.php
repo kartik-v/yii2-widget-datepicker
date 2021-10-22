@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2018
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2021
  * @package yii2-widgets
  * @subpackage yii2-widget-datepicker
- * @version 1.4.7
+ * @version 1.4.8
  */
 
 namespace kartik\date;
@@ -235,7 +235,7 @@ class DatePicker extends InputWidget
      */
     protected function initIcon($type, $bs3Icon, $bs4Icon)
     {
-        $css = $this->isBs4() ? "fas fa-{$bs4Icon}" : "glyphicon glyphicon-{$bs3Icon}";
+        $css = !$this->isBs(3) ? "fas fa-{$bs4Icon}" : "glyphicon glyphicon-{$bs3Icon}";
         $icon = $type . 'Icon';
         if (!isset($this->$icon)) {
             $this->$icon = Html::tag('i', '', ['class' => $css . ' kv-dp-icon']);
@@ -364,7 +364,7 @@ class DatePicker extends InputWidget
         if (is_string($options)) {
             return $options;
         }
-        $css = $this->isBs4() ? 'input-group-text' : 'input-group-addon';
+        $css = !$this->isBs(3) ? 'input-group-text' : 'input-group-addon';
         Html::addCssClass($options, [$css, "kv-date-{$type}"]);
         $iconType = "{$type}Icon";
         $icon = ArrayHelper::remove($options, 'label', $this->$iconType);
@@ -386,7 +386,8 @@ class DatePicker extends InputWidget
     {
         $disabled = $this->disabled ? 'disabled' : '';
         $size = isset($this->size) ? "input-{$this->size}" : '';
-        $isBs4 = $this->isBs4();
+        $notBs3 = !$this->isBs(3);
+        $isBs5 = $this->isBs(5);
         switch ($this->type) {
             case self::TYPE_INPUT:
                 Html::addCssClass($this->options, [$size, $disabled]);
@@ -397,7 +398,7 @@ class DatePicker extends InputWidget
                 Html::addCssClass($this->_container, ['input-group', $size, 'date']);
                 $picker = $this->renderAddon($this->pickerButton);
                 $remove = $this->renderAddon($this->removeButton, 'remove');
-                if ($isBs4) {
+                if ($notBs3 && !$isBs5) {
                     $css = $this->type === self::TYPE_COMPONENT_APPEND ? 'append' : 'prepend';
                     $options = ['class' => 'input-group-' . $css];
                     $picker = Html::tag('div', $picker, $options);
@@ -416,7 +417,7 @@ class DatePicker extends InputWidget
                     $this->buttonOptions['disabled'] = $this->disabled;
                 }
                 if (empty($this->buttonOptions['class'])) {
-                    $this->buttonOptions['class'] = 'btn btn-' . ($isBs4 ? 'secondary' : 'default');
+                    $this->buttonOptions['class'] = 'btn btn-' . ($notBs3 ? 'secondary' : 'default');
                 }
                 $button = Html::button($label, $this->buttonOptions);
                 Html::addCssStyle($this->_container, 'display:block');
@@ -446,9 +447,9 @@ class DatePicker extends InputWidget
                         Html::activeTextInput($this->model, $this->attribute2, $this->options2) :
                         Html::textInput($this->name2, $this->value2, $this->options2);
                 }
-                $css = $isBs4 ? 'input-group-text' : 'input-group-addon';
+                $css = $notBs3 ? 'input-group-text' : 'input-group-addon';
                 $sep = Html::tag('span', $this->separator, ['class' => $css . ' kv-field-separator']);
-                if ($isBs4) {
+                if ($notBs3 && !$isBs5) {
                     $sep = Html::tag('div', $sep, ['class' => 'input-group-append']);
                 }
                 $out = strtr($this->layout, [
