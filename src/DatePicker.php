@@ -197,9 +197,9 @@ class DatePicker extends InputWidget
     public $separator = 'to';
 
     /**
-     * @var array the HTML options for the DatePicker container.
+     * @var array the HTML options (attributes) for the DatePicker container.
      */
-    private $_container = [];
+    public $containerOptions = [];
 
     /**
      * @var boolean whether a prepend or append addon exists.
@@ -256,9 +256,9 @@ class DatePicker extends InputWidget
         $this->initI18N(__DIR__);
         $this->setLanguage('bootstrap-datepicker.', __DIR__ . "{$s}assets{$s}", null, '.min.js');
         $this->parseDateFormat('date');
-        $this->_container['id'] = $this->options['id'] . '-' . $this->_msgCat;
+        $this->containerOptions['id'] = $this->options['id'] . '-' . $this->_msgCat;
         if ($this->type == self::TYPE_INLINE) {
-            $this->_container['data-date'] = $this->value;
+            $this->containerOptions['data-date'] = $this->value;
         }
         if (empty($this->layout)) {
             if ($this->type === self::TYPE_COMPONENT_PREPEND) {
@@ -271,7 +271,7 @@ class DatePicker extends InputWidget
         }
         Html::addCssClass($this->options, [$this->addInputCss, 'krajee-datepicker']);
         $this->options['data-datepicker-source'] = $this->type === self::TYPE_INPUT ? $this->options['id'] :
-            $this->_container['id'];
+            $this->containerOptions['id'];
         $this->options['data-datepicker-type'] = $this->type;
         $this->registerAssets();
         echo $this->renderInput();
@@ -395,7 +395,7 @@ class DatePicker extends InputWidget
             case self::TYPE_COMPONENT_PREPEND:
             case self::TYPE_COMPONENT_APPEND:
                 $size = isset($this->size) ? "input-group-{$this->size}" : '';
-                Html::addCssClass($this->_container, ['input-group', $size, 'date']);
+                Html::addCssClass($this->containerOptions, ['input-group', $size, 'date']);
                 $picker = $this->renderAddon($this->pickerButton);
                 $remove = $this->renderAddon($this->removeButton, 'remove');
                 if ($notBs3 && !$isBs5) {
@@ -409,9 +409,9 @@ class DatePicker extends InputWidget
                     '{remove}' => $remove,
                     '{input}' => $input,
                 ]);
-                return Html::tag('div', $out, $this->_container);
+                return Html::tag('div', $out, $this->containerOptions);
             case self::TYPE_BUTTON:
-                Html::addCssClass($this->_container, ['date', $disabled]);
+                Html::addCssClass($this->containerOptions, ['date', $disabled]);
                 $label = ArrayHelper::remove($this->buttonOptions, 'label', $this->pickerIcon);
                 if (!isset($this->buttonOptions['disabled'])) {
                     $this->buttonOptions['disabled'] = $this->disabled;
@@ -420,11 +420,11 @@ class DatePicker extends InputWidget
                     $this->buttonOptions['class'] = 'btn btn-' . ($notBs3 ? 'secondary' : 'default');
                 }
                 $button = Html::button($label, $this->buttonOptions);
-                Html::addCssStyle($this->_container, 'display:block');
-                return Html::tag('span', "{$input}{$button}", $this->_container);
+                Html::addCssStyle($this->containerOptions, 'display:block');
+                return Html::tag('span', "{$input}{$button}", $this->containerOptions);
             case self::TYPE_RANGE:
                 $size = isset($this->size) ? "input-group-{$this->size}" : '';
-                Html::addCssClass($this->_container, ['input-group', $size, 'input-daterange']);
+                Html::addCssClass($this->containerOptions, ['input-group', $size, 'input-daterange']);
                 $this->initDisability($this->options2);
                 if (isset($this->form)) {
                     Html::addCssClass($this->options, [$this->addInputCss, 'kv-field-from']);
@@ -457,10 +457,10 @@ class DatePicker extends InputWidget
                     '{separator}' => $sep,
                     '{input2}' => $input2,
                 ]);
-                return Html::tag('div', $out, $this->_container);
+                return Html::tag('div', $out, $this->containerOptions);
             case self::TYPE_INLINE:
                 Html::addCssClass($this->options, [$size, $disabled]);
-                return Html::tag('div', $input, $this->_container);
+                return Html::tag('div', $input, $this->containerOptions);
             default:
                 return '';
         }
